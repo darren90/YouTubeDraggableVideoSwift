@@ -10,7 +10,7 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
-    var videoPlayerVC:TFVideoPlayerController!
+    var videoPlayerVC:TFVideoPlayerController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,16 +51,34 @@ class HomeViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        if videoPlayerVC == nil {
+            showPlayerVc()
+        }else{
+            videoPlayerVC!.removePlayerVC()
+            videoPlayerVC?.view .removeFromSuperview()
+            videoPlayerVC = nil
+            
+            showPlayerVc()
+        }
     }
     
     
     func showPlayerVc(){
+        videoPlayerVC = (storyboard!.instantiateViewControllerWithIdentifier("playerVC") as! TFVideoPlayerController)
+        videoPlayerVC?.view.frame = CGRect(x: view.frame.width-50, y: view.frame.height-50, width: view.frame.width, height: view.frame.height)
+        videoPlayerVC!.initialFirstViewFrame = view.frame
         
+        videoPlayerVC?.view.alpha = 0
+        videoPlayerVC?.view.transform = CGAffineTransformMakeScale(0.2, 0.2)
         
-        videoPlayerVC = storyboard!.instantiateViewControllerWithIdentifier("playerVC") as! TFVideoPlayerController
+        view.addSubview((videoPlayerVC?.view)!)
+        videoPlayerVC?.onView = view
         
-        
+        UIView.animateWithDuration(0.9) { () -> Void in
+            self.videoPlayerVC?.view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.videoPlayerVC?.view.alpha = 1
+            self.videoPlayerVC?.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+        }
     }
  
 }
