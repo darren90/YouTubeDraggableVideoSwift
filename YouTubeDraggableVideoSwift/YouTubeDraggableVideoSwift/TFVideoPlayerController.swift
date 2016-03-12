@@ -58,6 +58,8 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
 //    //detecting Pan gesture Direction
 //    UIPanGestureRecognizerDirection direction;
     var direction:UIPanGestureRecognizerDirection!
+    
+    var tapRecognizer:UITapGestureRecognizer?
  
     
     //local touch location
@@ -177,7 +179,10 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     func removePlayerVC(){
-        
+        self.player.stop()
+        viewYouTube.removeFromSuperview()
+        viewTable.removeFromSuperview()
+        transaparentVw.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {
@@ -243,9 +248,154 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
             
         }else if (recognizer.state == .Ended){
             
+            
+            if (direction == .Down || direction == .Up ){
+                
+                if recognizer.view?.frame.origin.y < 0 {
+                    expandViewOnPa()
+                    
+                    recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+                    
+                    return
+                }else if ( recognizer.view?.frame.origin.y  > (self.initialFirstViewFrame.size.width/2)){
+                    minimizeViewOnPan()
+                    
+                    recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+                    
+                    return
+                }else if ( recognizer.view?.frame.origin.y < (self.initialFirstViewFrame.size.width/2)){
+                    expandViewOnPa()
+                    
+                    recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+                    return
+                }
+            }else if (direction == .Left){
+                
+                if (viewTable.alpha <= 0){
+                    if recognizer.view?.frame.origin.x < 0 {
+                        self.view.removeFromSuperview()
+                        removePlayerVC()
+                        //MARK : //Delegate
+                    }else {
+                    
+                        animateViewToRight(recognizer)
+                    }
+                }
+            }else if (direction == .Right){
+                
+                if self.viewTable.alpha <= 0 {
+                
+                    if recognizer.view?.frame.origin.x > initialFirstViewFrame.size.width - 50{
+                    
+                        self.view.removeFromSuperview()
+                        removePlayerVC()
+                        //MARK : //Delegate
+                    }else {
+                    
+                        animateViewToLeft(recognizer)
+                    }
+                }
+            }
+            
         }
         
         
+    }
+    func animateViewToLeft(recognizer:UIPanGestureRecognizer){
+        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.viewTable.frame = self.menuFrame;
+            self.viewYouTube.frame = self.viewFrame;
+            self.player.view.frame=CGRectMake( self.player.view.frame.origin.x,  self.player.view.frame.origin.x, self.viewFrame.size.width, self.viewFrame.size.height);
+            self.viewTable.alpha = 0;
+            self.viewYouTube.alpha = 1;
+            }) { (_) -> Void in
+                
+        }
+        recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+    }
+    func animateViewToRight(recognizer:UIPanGestureRecognizer){
+        
+        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.viewTable.frame = self.menuFrame
+            self.viewYouTube.frame = self.viewFrame
+            self.player.view.frame=CGRectMake( self.player.view.frame.origin.x,  self.player.view.frame.origin.x, self.viewFrame.size.width, self.viewFrame.size.height);
+            self.viewTable.alpha=0;
+            self.viewYouTube.alpha=1;
+            }) { (_) -> Void in
+                
+        }
+        recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+    }
+    
+    func minimizeViewOnPan(){
+        btnDown.hidden = true
+        let trueOffset = initialFirstViewFrame.height - 100
+        let xOffset = initialFirstViewFrame.width - 160
+        
+        //Use this offset to adjust the position of your view accordingly
+        menuFrame.origin.y = trueOffset;
+        menuFrame.origin.x = xOffset;
+        menuFrame.size.width=self.initialFirstViewFrame.size.width-xOffset;
+        //menuFrame.size.height=200-xOffset*0.5;
+        
+        // viewFrame.origin.y = trueOffset;
+        //viewFrame.origin.x = xOffset;
+        viewFrame.size.width=self.view.bounds.size.width-xOffset;
+        viewFrame.size.height=200-xOffset*0.5;
+        viewFrame.origin.y=trueOffset;
+        viewFrame.origin.x=xOffset;
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.viewTable.frame = self.menuFrame;
+            self.viewYouTube.frame = self.viewFrame;
+            self.player.view.frame=CGRectMake( self.player.view.frame.origin.x,  self.player.view.frame.origin.x, self.viewFrame.size.width, self.viewFrame.size.height);
+            self.viewTable.alpha=0;
+            self.transaparentVw.alpha=0.0;
+            
+            }) { (_) -> Void in
+                //add tap gesture
+                self.tapRecognizer = nil;
+                if(self.tapRecognizer == nil)  {
+                    self.tapRecognizer = UITapGestureRecognizer(target: self, action: "expandViewOnTap:")
+                    
+                    self.tapRecognizer!.numberOfTapsRequired = 1;
+                    self.tapRecognizer!.delegate = self;
+                    self.viewYouTube.addGestureRecognizer(self.tapRecognizer!)
+                }
+                
+                self.isExpandedMode = false;
+                self.minimizedYouTubeFrame = self.viewYouTube.frame;
+                
+                if (self.direction == .Down) {
+                    self.onView.bringSubviewToFront(self.view)
+                }
+
+        }
+    }
+    
+    func expandViewOnTap(sender:UITapGestureRecognizer){
+        expandViewOnPa()
+        
+        for recognizer:UIGestureRecognizer in self.viewYouTube.gestureRecognizers! {
+            if recognizer.isKindOfClass(UITapGestureRecognizer.self){
+                self.viewYouTube.removeGestureRecognizer(recognizer)
+            }
+        }
+    }
+    
+    func expandViewOnPa(){
+        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.viewTable.frame = self.tblFrame
+            self.viewYouTube.frame = self.youtubeFrame
+            self.viewYouTube.alpha = 1
+            self.player.view.frame = self.youtubeFrame
+            self.viewTable.alpha = 1.0
+            self.transaparentVw.alpha = 1.0
+            }) { (_) -> Void in
+                self.player.controlStyle = .Default
+                self.isExpandedMode = true
+                self.btnDown.hidden = false
+        }
     }
     
     func adjustViewOnVerticalPan(var trueOffset:CGFloat,var xOffset:CGFloat,recognizer:UIPanGestureRecognizer){
