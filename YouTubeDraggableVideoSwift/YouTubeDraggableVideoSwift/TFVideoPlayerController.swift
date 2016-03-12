@@ -46,12 +46,12 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
 
     
     //local Frame store
-    var youtubeFrame:CGRect!
-    var tblFrame:CGRect!
-    var menuFrame:CGRect!
-    var viewFrame:CGRect!
-    var minimizedYouTubeFrame:CGRect!
-    var growingTextViewFrame:CGRect!
+    var youtubeFrame:CGRect = CGRectZero
+    var tblFrame:CGRect = CGRectZero
+    var menuFrame:CGRect = CGRectZero
+    var viewFrame:CGRect = CGRectZero
+    var minimizedYouTubeFrame:CGRect = CGRectZero
+    var growingTextViewFrame:CGRect = CGRectZero
     
     var transaparentVw:UIView!
     
@@ -235,7 +235,10 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
                 let trueOffset = y - touchPositionInHeaderY
                 let xOffset = (y - touchPositionInHeaderY)*0.35
                 
-//                adjustview
+               adjustViewOnVerticalPan(trueOffset, xOffset: xOffset, recognizer: recognizer)
+            }else if(direction == .Right || direction == .Left){
+                
+                 adjustViewOnHorizontalPan(recognizer)
             }
             
         }else if (recognizer.state == .Ended){
@@ -244,7 +247,123 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
         
         
     }
+    
+    func adjustViewOnVerticalPan(var trueOffset:CGFloat,var xOffset:CGFloat,recognizer:UIPanGestureRecognizer){
+        
+        let y:CGFloat = recognizer.locationInView(view).y
+        
+        if( trueOffset  >= CGFloat(restrictTrueOffset! + 60) || xOffset >= CGFloat(restrictOffset! + 60) ){
+            
+            trueOffset = initialFirstViewFrame.height - 100
+            xOffset = initialFirstViewFrame.width - 160
+        
+            //Use this offset to adjust the position of your view accordingly
+            menuFrame.origin.y = trueOffset;
+            menuFrame.origin.x = xOffset;
+            menuFrame.size.width=self.initialFirstViewFrame.size.width-xOffset;
+            
+            viewFrame.size.width=self.view.bounds.size.width-xOffset;
+            viewFrame.size.height=200-xOffset*0.5;
+            viewFrame.origin.y=trueOffset;
+            viewFrame.origin.x=xOffset;
+            
+            
+            UIView.animateWithDuration(0.05, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                self.viewTable.frame = self.menuFrame
+                self.viewYouTube.frame = self.viewFrame
+                self.player.view.frame = CGRect(x: self.player.view.frame.origin.x, y: self.player.view.frame.origin.y, width: self.viewFrame.size.width, height: self.viewFrame.size.height)
+                self.viewTable.alpha = 0
+                
+                }, completion: { (_) -> Void in
+                    self.minimizedYouTubeFrame = self.viewYouTube.frame
+                    self.isExpandedMode = false
+            })
+            recognizer .setTranslation(CGPointZero, inView: view)
+        
+        }else{
+            //Use this offset to adjust the position of your view accordingly
+            menuFrame.origin.y = trueOffset;
+            menuFrame.origin.x = xOffset;
+            menuFrame.size.width=self.initialFirstViewFrame.size.width-xOffset;
+            viewFrame.size.width=self.view.bounds.size.width-xOffset;
+            viewFrame.size.height=200-xOffset*0.5;
+            viewFrame.origin.y=trueOffset;
+            viewFrame.origin.x=xOffset;
+            let restrictY = self.initialFirstViewFrame.size.height-self.viewYouTube.frame.size.height-10;
+            
+            if viewTable.frame.origin.y < restrictY && viewTable.frame.origin.y > 0{
+                
+                UIView.animateWithDuration(0.09, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                    self.viewTable.frame = self.menuFrame
+                    self.viewYouTube.frame = self.viewFrame
+                    self.player.view.frame = CGRectMake( self.player.view.frame.origin.x,  self.player.view.frame.origin.x, self.viewFrame.size.width, self.viewFrame.size.height);
+                    let percentage = y/self.initialFirstViewFrame.size.height;
+                    self.viewTable.alpha =  1.0 - percentage;
+                    self.transaparentVw.alpha =  1.0 - percentage
+                    
+                    }, completion: { (_) -> Void in
+                        if self.direction == .Down {
+                            self.onView.bringSubviewToFront(self.view)
+                        }
+                })
+            } else if (menuFrame.origin.y<restrictY && menuFrame.origin.y>0) {
+            
+                UIView.animateWithDuration(0.09, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                    self.viewTable.frame = self.menuFrame;
+                    self.viewYouTube.frame = self.viewFrame;
+                    self.player.view.frame=CGRectMake(self.player.view.frame.origin.x,  self.player.view.frame.origin.x, self.viewFrame.size.width, self.viewFrame.size.height);
+                    }, completion: nil)
+                
+            }
+            recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+        }
+        
+        
+    }
 
+    func adjustViewOnHorizontalPan(recognizer:UIPanGestureRecognizer){
+        let x = recognizer.locationInView(view).x
+        if (direction == .Left){
+            if viewTable.alpha <= 0{
+                let velocity:CGPoint = recognizer .velocityInView(recognizer.view)
+                let isVerticalGesture = fabs(velocity.y) > fabs(velocity.x)
+                
+                let translation = recognizer .translationInView(recognizer.view)
+                recognizer.view?.center = CGPoint(x: ((recognizer.view?.center.x)! + translation.x), y: recognizer.view!.center.y)
+                
+                if (!isVerticalGesture){
+                    let percentage:CGFloat = x / initialFirstViewFrame.width
+                    recognizer.view?.alpha = percentage
+                }
+                
+                recognizer .setTranslation(CGPointZero, inView: recognizer.view)
+            }
+        }else if(direction == .Right){
+            
+            if(viewTable.alpha <= 0){
+                let velocity:CGPoint = recognizer.velocityInView(recognizer.view)
+                let isVerticalGesture = fabs(velocity.y) > fabs(velocity.x)
+                
+                let translation = recognizer .translationInView(recognizer.view)
+                recognizer.view?.center = CGPoint(x: ((recognizer.view?.center.x)! + translation.x), y: recognizer.view!.center.y)
+                
+                if (!isVerticalGesture){
+                    if(velocity.x > 0){
+                        let percentage:CGFloat = x / initialFirstViewFrame.width
+//                        recognizer.view?.alpha = 1 - percentage
+                    }else {
+                        let percentage:CGFloat = x / initialFirstViewFrame.width
+                        recognizer.view?.alpha = percentage
+                    }
+                }
+                
+                recognizer .setTranslation(CGPointZero, inView: recognizer.view)
+
+            }
+        
+        }
+    }
+    
     
     func detectPanDirection(velocity:CGPoint){
         btnDown.hidden = true
