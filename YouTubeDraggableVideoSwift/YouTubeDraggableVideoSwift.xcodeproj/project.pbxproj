@@ -14,7 +14,10 @@
 		FEBE98CE1C93097D00956804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEBE98CC1C93097D00956804 /* LaunchScreen.storyboard */; };
 		FEBE98D91C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98D81C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift */; };
 		FEBE98E41C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98E31C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift */; };
-		FEBE98F21C930C5300956804 /* TFVideoDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */; };
+		FEF0E9DE1C93A511000FAD32 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF0E9DD1C93A511000FAD32 /* HomeViewController.swift */; };
+		FEF0E9E11C93A61E000FAD32 /* profilePhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = FEF0E9DF1C93A61E000FAD32 /* profilePhoto.png */; };
+		FEF0E9E21C93A61E000FAD32 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FEF0E9E01C93A61E000FAD32 /* sample.mp4 */; };
+		FEF0E9E41C93A854000FAD32 /* TFVideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF0E9E31C93A854000FAD32 /* TFVideoPlayerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,14 +44,17 @@
 		FEBE98C81C93097D00956804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FEBE98CA1C93097D00956804 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEBE98CD1C93097D00956804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FEBE98CF1C93097D00956804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEBE98CF1C93097D00956804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../YouTubeDraggableVideoSwift/Info.plist; sourceTree = "<group>"; };
 		FEBE98D41C93097D00956804 /* YouTubeDraggableVideoSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YouTubeDraggableVideoSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEBE98D81C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDraggableVideoSwiftTests.swift; sourceTree = "<group>"; };
 		FEBE98DA1C93097D00956804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEBE98DF1C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YouTubeDraggableVideoSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEBE98E31C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDraggableVideoSwiftUITests.swift; sourceTree = "<group>"; };
 		FEBE98E51C93097D00956804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFVideoDetailController.swift; sourceTree = "<group>"; };
+		FEF0E9DD1C93A511000FAD32 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FEF0E9DF1C93A61E000FAD32 /* profilePhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profilePhoto.png; sourceTree = "<group>"; };
+		FEF0E9E01C93A61E000FAD32 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
+		FEF0E9E31C93A854000FAD32 /* TFVideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFVideoPlayerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +107,10 @@
 			children = (
 				FEBE98C31C93097D00956804 /* AppDelegate.swift */,
 				FEBE98C51C93097D00956804 /* ViewController.swift */,
-				FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */,
+				FEF0E9DD1C93A511000FAD32 /* HomeViewController.swift */,
+				FEF0E9E31C93A854000FAD32 /* TFVideoPlayerController.swift */,
 				FEBE98C71C93097D00956804 /* Main.storyboard */,
 				FEBE98CA1C93097D00956804 /* Assets.xcassets */,
-				FEBE98CC1C93097D00956804 /* LaunchScreen.storyboard */,
-				FEBE98CF1C93097D00956804 /* Info.plist */,
 			);
 			path = YouTubeDraggableVideoSwift;
 			sourceTree = "<group>";
@@ -113,6 +118,10 @@
 		FEBE98D71C93097D00956804 /* YouTubeDraggableVideoSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				FEF0E9DF1C93A61E000FAD32 /* profilePhoto.png */,
+				FEF0E9E01C93A61E000FAD32 /* sample.mp4 */,
+				FEBE98CC1C93097D00956804 /* LaunchScreen.storyboard */,
+				FEBE98CF1C93097D00956804 /* Info.plist */,
 				FEBE98D81C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift */,
 				FEBE98DA1C93097D00956804 /* Info.plist */,
 			);
@@ -242,6 +251,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEF0E9E11C93A61E000FAD32 /* profilePhoto.png in Resources */,
+				FEF0E9E21C93A61E000FAD32 /* sample.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +270,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEBE98F21C930C5300956804 /* TFVideoDetailController.swift in Sources */,
+				FEF0E9E41C93A854000FAD32 /* TFVideoPlayerController.swift in Sources */,
 				FEBE98C61C93097D00956804 /* ViewController.swift in Sources */,
 				FEBE98C41C93097D00956804 /* AppDelegate.swift in Sources */,
+				FEF0E9DE1C93A511000FAD32 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +323,7 @@
 				FEBE98CD1C93097D00956804 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = ../YouTubeDraggableVideoSwift;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
