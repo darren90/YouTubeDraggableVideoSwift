@@ -14,6 +14,7 @@
 		FEBE98CE1C93097D00956804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEBE98CC1C93097D00956804 /* LaunchScreen.storyboard */; };
 		FEBE98D91C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98D81C93097D00956804 /* YouTubeDraggableVideoSwiftTests.swift */; };
 		FEBE98E41C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98E31C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift */; };
+		FEBE98F21C930C5300956804 /* TFVideoDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		FEBE98DF1C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YouTubeDraggableVideoSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEBE98E31C93097D00956804 /* YouTubeDraggableVideoSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeDraggableVideoSwiftUITests.swift; sourceTree = "<group>"; };
 		FEBE98E51C93097D00956804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFVideoDetailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				FEBE98C31C93097D00956804 /* AppDelegate.swift */,
 				FEBE98C51C93097D00956804 /* ViewController.swift */,
+				FEBE98F11C930C5300956804 /* TFVideoDetailController.swift */,
 				FEBE98C71C93097D00956804 /* Main.storyboard */,
 				FEBE98CA1C93097D00956804 /* Assets.xcassets */,
 				FEBE98CC1C93097D00956804 /* LaunchScreen.storyboard */,
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEBE98F21C930C5300956804 /* TFVideoDetailController.swift in Sources */,
 				FEBE98C61C93097D00956804 /* ViewController.swift in Sources */,
 				FEBE98C41C93097D00956804 /* AppDelegate.swift in Sources */,
 			);
@@ -482,6 +486,7 @@
 				FEBE98EA1C93097D00956804 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FEBE98EB1C93097D00956804 /* Build configuration list for PBXNativeTarget "YouTubeDraggableVideoSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +495,7 @@
 				FEBE98ED1C93097D00956804 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FEBE98EE1C93097D00956804 /* Build configuration list for PBXNativeTarget "YouTubeDraggableVideoSwiftUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +504,7 @@
 				FEBE98F01C93097D00956804 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
