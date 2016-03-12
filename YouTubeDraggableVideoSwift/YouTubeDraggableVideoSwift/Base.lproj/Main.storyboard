@@ -130,7 +130,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-EG-kt7">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-EG-kt7">
                                                             <rect key="frame" x="18" y="16" width="80" height="67"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="9hD-wj-paY"/>
