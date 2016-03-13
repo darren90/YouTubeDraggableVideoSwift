@@ -50,6 +50,7 @@ class HomeViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if videoPlayerVC == nil {
             showPlayerVc()

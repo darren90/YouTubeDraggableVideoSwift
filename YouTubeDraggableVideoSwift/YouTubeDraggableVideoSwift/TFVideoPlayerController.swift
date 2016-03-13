@@ -100,6 +100,7 @@ class TFVideoPlayerController: UIViewController,UIGestureRecognizerDelegate {
         calculateFrames()
     }
 
+    
     func calculateFrames(){
         youtubeFrame = viewYouTube.frame
         tblFrame = viewTable.frame
